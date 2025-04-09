@@ -1,0 +1,74 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directories
+node_modules/
+bower_components/
+jspm_packages/
+
+# Debug logs
+*.log
+*.gz
+*.tgz
+
+# Miscellaneous
+.DS_Store
+.env
+.env.*.local
+
+# Build output
+dist/
+out/
+build/
+
+# Dependency directories (optional common cases)
+.npm/
+.yarn/
+.yarnrc.yml
+.pnp.*
+
+# IDEs
+.idea/
+
+# VS Code Settings
+.vscode/
+*.code-workspace
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint and prettier rules
+.eslintcache
+.prettierignore
+.prettier.cache
+
+# Optional coverage directories
+coverage/
+*.lcov
+
+# Optional lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Optional test and misc
+test_output/
+error.log
+
+# Optional Typography
+*.ttf
+*.otf
+
+# Git
+.git/
+.gitignore.lock
