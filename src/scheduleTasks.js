@@ -1,4 +1,4 @@
-const { RobloxData, RobloxPresence } = require("./services/roblox");
+const { RobloxData, RobloxPresence, RobloxFriends } = require("./services/roblox");
 const { detectChanges } = require("./utils/changeTracker");
 const { formatWebhookEmbed } = require("./utils/formatWebhook");
 const { sendWebhookNotification } = require("./webhookNotifier");
@@ -17,33 +17,28 @@ const scheduleTasks = async () => {
             console.log(`Checking Roblox account: ${account.accountId}`);
 
             try {
+                // Fetch user, presence, and friend list data
                 const userData = await RobloxData(account.auth.cookie, account.accountId);
-                const presenceData = await RobloxPresence(account.auth.cookie, [
-                    account.accountId,
-                ]);
+                const presenceData = await RobloxPresence(account.auth.cookie, [account.accountId]);
+                const friendsData = await RobloxFriends(account.auth.cookie, account.accountId);
 
                 const newData = {
                     userData: { ...userData },
                     presenceData: presenceData?.userPresences?.length > 0
                         ? presenceData.userPresences[0]
                         : null,
+                    friendListData: { friends: friendsData } // Store the fetched list of friends
                 };
 
                 const oldData = account.oldData || {};
 
-                console.log(
-                    `Old data for account ${account.accountId}:`,
-                    JSON.stringify(oldData, null, 2)
-                );
-                console.log(
-                    `New data for account ${account.accountId}:`,
-                    JSON.stringify(newData, null, 2)
-                );
+                console.log(`Got old Data`);
+                console.log(`Got new Data`);
 
                 const changes = detectChanges(oldData, newData);
 
                 if (changes.length > 0) {
-                    console.log(`Detected changes for account ${account.accountId}:`, changes);
+                    console.log(`Detected changes for account ${account.accountId}`);
 
                     const embed = formatWebhookEmbed(changes, account);
 
@@ -51,6 +46,7 @@ const scheduleTasks = async () => {
                         await sendWebhookNotification(WEBHOOK_URL, embed);
                     }
 
+                    // Update old data for the next check
                     account.oldData = newData;
 
                     try {

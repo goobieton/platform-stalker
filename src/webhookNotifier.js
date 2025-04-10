@@ -7,7 +7,7 @@ const sendWebhookNotification = async (webhookUrl, embed) => {
         });
         console.log('Notification sent to Discord!');
     } catch (error) {
-        console.error('Error sending Discord notification:', error.response?.data || error.message);
+        console.error('Error sending Discord notification', error.response?.data || error.message);
     }
 };
 
