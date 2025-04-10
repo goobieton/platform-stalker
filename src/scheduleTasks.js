@@ -43,10 +43,10 @@ const scheduleTasks = async () => {
                     console.log(`Detected changes for account ${account.accountId}`);
 
                     const formatter = getPlatformFormatter(account.platform);
-                    const embed = formatter(changes, account);
+                    const embeds = formatter(changes, account);
 
-                    if (embed) {
-                        await sendWebhookNotification(WEBHOOK_URL, embed);
+                    if (embeds) {
+                        await sendWebhookNotification(WEBHOOK_URL, embeds);
                     }
 
                     account.oldData = newData;

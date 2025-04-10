@@ -1,9 +1,12 @@
 const axios = require('axios');
 
-const sendWebhookNotification = async (webhookUrl, embed) => {
+const sendWebhookNotification = async (webhookUrl, embedContent) => {
     try {
+        // Check if embedContent is an array (multiple embeds) or a single embed object
+        const embeds = Array.isArray(embedContent) ? embedContent : [embedContent];
+
         await axios.post(webhookUrl, {
-            embeds: [embed],
+            embeds: embeds,
         });
         console.log('Notification sent to Discord!');
     } catch (error) {
