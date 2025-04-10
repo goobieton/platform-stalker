@@ -49,7 +49,6 @@ const scheduleTasks = async () => {
                         await sendWebhookNotification(WEBHOOK_URL, embed);
                     }
 
-                    // Update old data for the next check
                     account.oldData = newData;
 
                     try {
