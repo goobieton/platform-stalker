@@ -7,7 +7,6 @@ const detectChanges = (oldData = {}, newData = {}, parentKey = "") => {
         const fieldName = parentKey ? `${parentKey}.${key}` : key;
 
         if (Array.isArray(oldValue) && Array.isArray(newValue)) {
-            // Detect changes in arrays (e.g., friend list)
             const oldIds = oldValue.map(item => item.id).sort();
             const newIds = newValue.map(item => item.id).sort();
 
@@ -23,10 +22,8 @@ const detectChanges = (oldData = {}, newData = {}, parentKey = "") => {
                 });
             }
         } else if (typeof oldValue === "object" && typeof newValue === "object" && oldValue !== null && newValue !== null) {
-            // Recurse for nested objects
             changes.push(...detectChanges(oldValue, newValue, fieldName));
         } else if (oldValue !== newValue) {
-            // Basic value comparison
             changes.push({
                 field: fieldName,
                 oldValue: oldValue === undefined ? "N/A" : oldValue,
